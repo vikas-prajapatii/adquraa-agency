@@ -1,14 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <nav className="fixed top-0 w-full z-50 glass border-b border-white/10 bg-[#050505]/50 supports-[backdrop-filter]:bg-white/5">
+        <nav
+            className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${isScrolled
+                ? 'glass border-white/10 bg-[#050505]/60 supports-[backdrop-filter]:bg-[#050505]/40 shadow-lg backdrop-blur-md'
+                : 'bg-transparent border-transparent'
+                }`}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <div className="flex-shrink-0">
@@ -33,6 +47,13 @@ export default function Navbar() {
                             </Link>
                             <Link href="/#creators" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 For Creators
+                            </Link>
+                            <span className="text-gray-700">|</span>
+                            <Link href="/dashboard/brand" className="text-gray-400 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Brand Console
+                            </Link>
+                            <Link href="/dashboard/creator" className="text-gray-400 hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Creator Hub
                             </Link>
                         </div>
                     </div>
@@ -74,6 +95,10 @@ export default function Navbar() {
                         <Link href="/#how-it-works" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">How it Works</Link>
                         <Link href="/#brands" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">For Brands</Link>
                         <Link href="/#creators" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">For Creators</Link>
+                        <div className="h-px bg-white/10 my-2" />
+                        <Link href="/dashboard/brand" className="text-cyan-400 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Brand Console</Link>
+                        <Link href="/dashboard/creator" className="text-emerald-400 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Creator Hub</Link>
+                        <div className="h-px bg-white/10 my-2" />
                         <Link
                             href="/login"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
