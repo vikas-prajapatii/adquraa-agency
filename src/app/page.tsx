@@ -1,20 +1,26 @@
-import Image from "next/image";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import HowItWorks from "@/components/HowItWorks";
-import ForBrands from "@/components/ForBrands";
-import ForCreators from "@/components/ForCreators";
-import CTA from "@/components/CTA";
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [message, setMessage] = useState("Loading...");
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/`)
+      .then((res) => res.text())
+      .then((data) => {
+        setMessage(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        setMessage("Backend connection failed ❌");
+      });
+  }, []);
+
   return (
-    <main className="min-h-screen bg-[#050505]">
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <ForBrands />
-      <ForCreators />
-      <CTA />
+    <main style={{ padding: "40px", fontSize: "22px" }}>
+      <h1>Frontend → Backend Connection Test</h1>
+      <p>{message}</p>
     </main>
   );
 }

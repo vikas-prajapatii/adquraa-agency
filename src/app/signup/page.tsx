@@ -1,5 +1,5 @@
 'use client';
-
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
