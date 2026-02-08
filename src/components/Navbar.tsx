@@ -89,28 +89,36 @@ export default function Navbar() {
             </div>
 
             {isOpen && (
-                <div className="md:hidden glass border-t border-white/10 bg-black/95" id="mobile-menu">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <Link href="/#features" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</Link>
-                        <Link href="/#how-it-works" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">How it Works</Link>
-                        <Link href="/#brands" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">For Brands</Link>
-                        <Link href="/#creators" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">For Creators</Link>
-                        <div className="h-px bg-white/10 my-2" />
-                        <Link href="/dashboard/brand" className="text-cyan-400 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Brand Console</Link>
-                        <Link href="/dashboard/creator" className="text-emerald-400 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Creator Hub</Link>
-                        <div className="h-px bg-white/10 my-2" />
-                        <Link
-                            href="/login"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                        >
-                            Login
-                        </Link>
-                        <Link
-                            href="/signup"
-                            className="text-white bg-white/10 block px-3 py-2 rounded-md text-base font-medium border border-white/10 backdrop-blur-md"
-                        >
-                            Sign Up
-                        </Link>
+                <div className="md:hidden absolute top-20 left-0 w-full glass border-b border-white/10 bg-[#050505]/95 backdrop-blur-xl animate-in slide-in-from-top-5 duration-200" id="mobile-menu">
+                    <div className="px-4 pt-4 pb-6 space-y-2">
+                        <Link href="/#features" className="text-gray-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-xl text-lg font-medium transition-colors" onClick={() => setIsOpen(false)}>Features</Link>
+                        <Link href="/#how-it-works" className="text-gray-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-xl text-lg font-medium transition-colors" onClick={() => setIsOpen(false)}>How it Works</Link>
+                        <Link href="/#brands" className="text-gray-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-xl text-lg font-medium transition-colors" onClick={() => setIsOpen(false)}>For Brands</Link>
+                        <Link href="/#creators" className="text-gray-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-xl text-lg font-medium transition-colors" onClick={() => setIsOpen(false)}>For Creators</Link>
+
+                        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4" />
+
+                        <Link href="/dashboard/brand" className="text-cyan-400 hover:text-white hover:bg-cyan-500/10 block px-4 py-3 rounded-xl text-lg font-medium transition-colors" onClick={() => setIsOpen(false)}>Brand Console</Link>
+                        <Link href="/dashboard/creator" className="text-emerald-400 hover:text-white hover:bg-emerald-500/10 block px-4 py-3 rounded-xl text-lg font-medium transition-colors" onClick={() => setIsOpen(false)}>Creator Hub</Link>
+
+                        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4" />
+
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <Link
+                                href="/login"
+                                className="text-center text-gray-300 hover:text-white border border-white/10 block px-4 py-3 rounded-xl text-base font-medium transition-colors"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                href="/signup"
+                                className="text-center text-white bg-gradient-to-r from-indigo-600 to-cyan-600 block px-4 py-3 rounded-xl text-base font-medium shadow-lg"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Sign Up
+                            </Link>
+                        </div>
                     </div>
                 </div>
             )}
