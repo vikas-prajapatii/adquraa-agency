@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Megaphone, Layout, Cpu } from "lucide-react";
+import Link from "next/link";
 import { SectionWrapper } from "./ui/SectionWrapper";
 import { GlassCard } from "./ui/GlassCard";
 
@@ -39,17 +40,42 @@ export default function ServicesOverview() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {services.map((service, index) => (
-                    <GlassCard key={index} className="p-8 group" hoverEffect={true} gradient={true}>
-                        <div className={`w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 ${service.color} group-hover:scale-110 transition-transform`}>
-                            <service.icon size={28} />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
-                        <p className="text-gray-400 leading-relaxed">
-                            {service.description}
-                        </p>
-                    </GlassCard>
-                ))}
+                {services.map((service, index) => {
+                    // Check if the service title matches "AI Ad Generation"
+                    const isAiLink = service.title === "AI Ad Generation";
+                    const CardContent = (
+                        <GlassCard className={`p-8 group h-full ${isAiLink ? 'cursor-pointer hover:border-adquora-cyan/50' : ''}`} hoverEffect={true} gradient={true}>
+                            <div className={`w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 ${service.color} group-hover:scale-110 transition-transform`}>
+                                <service.icon size={28} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                                {service.title}
+                                {isAiLink && <span className="text-xs px-2 py-0.5 rounded-full bg-adquora-cyan/20 text-adquora-cyan border border-adquora-cyan/30">NEW</span>}
+                            </h3>
+                            <p className="text-gray-400 leading-relaxed">
+                                {service.description}
+                            </p>
+                        </GlassCard>
+                    );
+
+                    if (isAiLink) {
+                        return (
+                            <Link href="/services/ai-ad-generation" key={index} className="block h-full">
+                                {CardContent}
+                            </Link>
+                        );
+                    }
+
+                    if (service.title === "Web & Landing Pages") {
+                        return (
+                            <Link href="/services/web-development" key={index} className="block h-full cursor-pointer hover:border-blue-400/50">
+                                {CardContent}
+                            </Link>
+                        );
+                    }
+
+                    return <div key={index} className="h-full">{CardContent}</div>;
+                })}
             </div>
         </SectionWrapper>
     );

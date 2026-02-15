@@ -58,7 +58,7 @@ export default function Footer() {
                             links: [
                                 { label: "Privacy Policy", href: "#" },
                                 { label: "Terms of Service", href: "#" },
-                                { label: "Escrow Rules", href: "#" },
+                                { label: "Escrow Rules", href: "/trust" },
                                 { label: "Cookie Policy", href: "#" },
                             ],
                         },

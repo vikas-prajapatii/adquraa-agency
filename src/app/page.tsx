@@ -3,6 +3,8 @@ import WhoIsThisFor from "@/components/WhoIsThisFor";
 import HowItWorks from "@/components/HowItWorks";
 import ServicesOverview from "@/components/Features"; // Refactored file
 import Contact from "@/components/Contact";
+import FeaturedCreators from "@/components/FeaturedCreators";
+import SuccessStories from "@/components/SuccessStories";
 import Footer from "@/components/Footer"; // Importing Footer here for home page, or should be in layout
 
 export default function Home() {
@@ -11,6 +13,8 @@ export default function Home() {
       <Hero />
       <WhoIsThisFor />
       <HowItWorks />
+      <FeaturedCreators />
+      <SuccessStories />
       <ServicesOverview />
       <Contact />
       <Footer />
