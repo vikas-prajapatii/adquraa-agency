@@ -104,7 +104,7 @@ export default function WebDevelopmentPage() {
                             </ul>
 
                             <Link href="/contact" className="block mt-auto">
-                                <Button width="full" className="bg-blue-600 hover:bg-blue-500 text-white">
+                                <Button className="bg-blue-600 hover:bg-blue-500 text-white w-full">
                                     Start Project
                                 </Button>
                             </Link>
@@ -138,7 +138,7 @@ export default function WebDevelopmentPage() {
                             </ul>
 
                             <Link href="/contact" className="block mt-auto">
-                                <Button variant="primary" width="full" icon={<ArrowRight size={18} />}>
+                                <Button variant="primary" icon={<ArrowRight size={18} />} className="w-full">
                                     Get Started
                                 </Button>
                             </Link>

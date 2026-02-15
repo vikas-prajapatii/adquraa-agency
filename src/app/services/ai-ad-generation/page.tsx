@@ -79,7 +79,7 @@ export default function AiAdGenerationPage() {
                                     </p>
 
                                     <Link href="/services/ai-ad-generation/create" className="block">
-                                        <Button variant="primary" size="lg" width="full" className="w-full group" icon={<ArrowRight size={20} />} iconPosition="right">
+                                        <Button variant="primary" size="lg" className="w-full group" icon={<ArrowRight size={20} />} iconPosition="right">
                                             Get Started
                                         </Button>
                                     </Link>

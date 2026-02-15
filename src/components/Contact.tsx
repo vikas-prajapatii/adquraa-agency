@@ -124,7 +124,7 @@ export default function Contact() {
                                     placeholder="How can we help you?"
                                 />
                             </div>
-                            <Button width="full" size="lg" icon={<Send size={18} />}>
+                            <Button size="lg" icon={<Send size={18} />} className="w-full">
                                 Send Message
                             </Button>
                         </form>

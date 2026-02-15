@@ -84,7 +84,7 @@ export default function TrustPage() {
                     <h2 className="text-3xl font-bold text-white mb-8">Ready to work securely?</h2>
                     <div className="flex justify-center gap-4">
                         <Link href="/auth/signup">
-                            <Button width="full" size="lg" icon={<ArrowRight size={20} />}>
+                            <Button size="lg" icon={<ArrowRight size={20} />} className="w-full">
                                 Join Adquora Now
                             </Button>
                         </Link>
