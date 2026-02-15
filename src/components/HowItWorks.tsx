@@ -1,61 +1,68 @@
-'use client';
-import { motion } from 'framer-motion';
-import { UserPlus, Handshake, CreditCard } from 'lucide-react';
+"use client";
+
+import { motion } from "framer-motion";
+import { UserPlus, Search, Shield, DollarSign } from "lucide-react";
+import { SectionWrapper } from "./ui/SectionWrapper";
 
 const steps = [
     {
         icon: UserPlus,
-        title: "1. Connect",
-        description: "Brands post campaigns. Verified creators apply. Connect instantly on our vetted marketplace."
+        title: "Create Your Profile",
+        description: "Sign up as a Brand or Creator. Brands verify funding, Creators verify stats."
     },
     {
-        icon: Handshake,
-        title: "2. Escrow",
-        description: "Brand funds the milestone. Money is held securely in escrow. Work begins with zero risk."
+        icon: Search,
+        title: "Find & Match",
+        description: "Brands post campaigns. Our AI matches them with the perfect vetted creators."
     },
     {
-        icon: CreditCard,
-        title: "3. Release",
-        description: "Work submitted and approved. Funds released instantly to the creator. No chasing invoices."
+        icon: Shield,
+        title: "Secure Contract",
+        description: "Terms are set. Funds are deposited into Escrow. Work begins securely."
+    },
+    {
+        icon: DollarSign,
+        title: "Delivery & Payout",
+        description: "Creator submits work. Brand approves. Funds are released instantly."
     }
 ];
 
 export default function HowItWorks() {
     return (
-        <section id="how-it-works" className="py-24 relative bg-[#050505]">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white font-display mb-4">
-                        How Adquoraa Works
-                    </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-                        A simple, secure process designed for modern collaborations.
-                    </p>
-                </div>
+        <SectionWrapper id="how-it-works" background="glass">
+            <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-6">
+                    How Adquora Works
+                </h2>
+                <p className="text-gray-400 max-w-2xl mx-auto">
+                    A streamlined, secure process designed to eliminate friction and build trust.
+                </p>
+            </div>
 
-                <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12">
-                    {/* Connecting Line (Desktop) */}
-                    <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-indigo-500/20 via-cyan-500/40 to-indigo-500/20 z-0" />
+            <div className="relative">
+                {/* Connecting Line (Desktop) */}
+                <div className="hidden md:block absolute top-[60px] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-adquora-purple/50 to-transparent dashed-line" />
 
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {steps.map((step, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.2 }}
-                            className="relative z-10 text-center group"
-                        >
-                            <div className="w-24 h-24 mx-auto glass rounded-full flex items-center justify-center mb-8 border border-white/10 group-hover:border-cyan-500/50 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all duration-300 bg-[#050505]">
-                                <step.icon className="w-10 h-10 text-cyan-400" />
+                        <div key={index} className="relative group text-center">
+                            <div className="relative z-10 w-24 h-24 mx-auto bg-[#0a0a0a] border border-white/10 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-black/50 group-hover:border-adquora-cyan/50 group-hover:shadow-adquora-cyan/20 transition-all duration-500">
+                                <step.icon className="w-10 h-10 text-gray-400 group-hover:text-adquora-cyan transition-colors" />
+
+                                {/* Step Number Badge */}
+                                <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-sm font-bold text-white border border-white/20">
+                                    {index + 1}
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-4">{step.title}</h3>
-                            <p className="text-gray-400 leading-relaxed px-4">
+
+                            <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed px-2">
                                 {step.description}
                             </p>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>
-        </section>
+        </SectionWrapper>
     );
 }

@@ -1,26 +1,20 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import Hero from "@/components/Hero";
+import WhoIsThisFor from "@/components/WhoIsThisFor";
+import HowItWorks from "@/components/HowItWorks";
+import ServicesOverview from "@/components/Features"; // Refactored file
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer"; // Importing Footer here for home page, or should be in layout
 
 export default function Home() {
-  const [message, setMessage] = useState("Loading...");
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/`)
-      .then((res) => res.text())
-      .then((data) => {
-        setMessage(data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setMessage("Backend connection failed ❌");
-      });
-  }, []);
-
   return (
-    <main style={{ padding: "40px", fontSize: "22px" }}>
-      <h1>Frontend → Backend Connection Test</h1>
-      <p>{message}</p>
+    <main className="flex min-h-screen flex-col items-center justify-between pb-24">
+      <Hero />
+      <WhoIsThisFor />
+      <HowItWorks />
+      <ServicesOverview />
+      <Contact />
+      <Footer />
     </main>
   );
 }
+

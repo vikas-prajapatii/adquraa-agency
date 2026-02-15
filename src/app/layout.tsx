@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Lexend } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,14 +9,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const lexend = Lexend({
-  variable: "--font-lexend",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Adquoraa Agency",
-  description: "High-end Influencer Marketplace",
+  title: "Adquora - Controlled Creator Ecosystem",
+  description: "Secure, escrow-based marketplace for brands and creators.",
 };
 
 export default function RootLayout({
@@ -26,10 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${lexend.variable} antialiased bg-[#050505] text-[#ededed] selection:bg-cyan-500/30 selection:text-cyan-100`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-[#050505] text-[#ededed] selection:bg-cyan-500/30 selection:text-cyan-100`}
       >
-        <Navbar />
-        {children}
+        <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,11 +1,12 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Briefcase, ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
+import Cookies from 'js-cookie';
 
 function SignupContent() {
     const searchParams = useSearchParams();
@@ -95,6 +96,7 @@ function RoleSelection({ onSelect }: { onSelect: (r: 'brand' | 'influencer') => 
 function SignupForm({ role, onBack }: { role: 'brand' | 'influencer', onBack: () => void }) {
     const isBrand = role === 'brand';
     const router = useRouter();
+    const { login } = useAuth();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -117,8 +119,8 @@ function SignupForm({ role, onBack }: { role: 'brand' | 'influencer', onBack: ()
             if (showOtp) {
                 const res = await api.auth.verify({ email: formData.email, otp });
                 if (res.token) {
-                    localStorage.setItem('token', res.token);
-                    router.push(isBrand ? '/dashboard/brand' : '/dashboard/creator');
+                    Cookies.set('auth_token', res.token, { expires: 7 }); // Set cookie for middleware
+                    login(res.token);
                 } else {
                     setError('Invalid OTP');
                 }
@@ -137,13 +139,13 @@ function SignupForm({ role, onBack }: { role: 'brand' | 'influencer', onBack: ()
                 setShowOtp(true);
                 // In a real app, you'd show a message "OTP sent to email"
             } else if (res.token) {
-                localStorage.setItem('token', res.token);
-                router.push(isBrand ? '/dashboard/brand' : '/dashboard/creator');
+                Cookies.set('auth_token', res.token, { expires: 7 }); // Set cookie for middleware
+                login(res.token);
             } else {
                 setError('Registration failed');
             }
-        } catch (err) {
-            setError('Something went wrong. Is the backend running?');
+        } catch (err: any) {
+            setError(err.message || 'Something went wrong. Is the backend running?');
         } finally {
             setLoading(false);
         }

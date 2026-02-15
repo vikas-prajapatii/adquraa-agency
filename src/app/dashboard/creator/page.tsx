@@ -1,54 +1,57 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { DollarSign, Briefcase, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion } from "framer-motion";
+import { DollarSign, Briefcase, Star, Clock, CheckCircle } from "lucide-react";
+import Sidebar from "@/components/dashboard/Sidebar";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { Button } from "@/components/ui/Button";
 
 const stats = [
     {
-        title: "Total Campaigns",
-        value: "12",
-        subtext: "Deals Completed",
-        icon: Briefcase,
-        color: "from-blue-500 to-cyan-500"
-    },
-    {
         title: "Total Earnings",
-        value: "$18,450",
-        subtext: "Net Income (Post-Commission)",
+        value: "$12,450",
+        subtext: "+15% vs last month",
         icon: DollarSign,
-        color: "from-emerald-500 to-green-500"
+        color: "text-green-400"
     },
     {
-        title: "Pending Escrow",
-        value: "$2,150",
-        subtext: "Securely Held Funds",
-        icon: Clock,
-        color: "from-orange-500 to-amber-500"
+        title: "Active Jobs",
+        value: "3",
+        subtext: "2 awaiting submission",
+        icon: Briefcase,
+        color: "text-adquora-cyan"
+    },
+    {
+        title: "Rating",
+        value: "4.9",
+        subtext: "Top Rated Talent",
+        icon: Star,
+        color: "text-yellow-400"
     }
 ];
 
-const activeDeals = [
+const jobs = [
     {
         id: 1,
-        campaign: "Summer Tech Launch",
-        brand: "Tech Giant A (Hidden)",
-        value: "$2,150",
-        status: "In-Progress",
-        deadline: "2 Days Left"
+        title: "Nike Summer Campaign",
+        brand: "Nike",
+        amount: "$4,500",
+        status: "Action Required",
+        deadline: "Today"
     },
     {
         id: 2,
-        campaign: "Fitness App Promo",
-        brand: "HealthCorp (Hidden)",
-        value: "$4,500",
-        status: "Reviewing",
-        deadline: "Submitted"
+        title: "Tech Unboxing",
+        brand: "Samsung",
+        amount: "$2,200",
+        status: "In Progress",
+        deadline: "3 Days left"
     },
     {
         id: 3,
-        campaign: "Gaming Monitor Review",
-        brand: "ScreenMasters (Hidden)",
-        value: "$1,200",
+        title: "Skincare Reel",
+        brand: "Cetaphil",
+        amount: "$800",
         status: "Completed",
         deadline: "Paid"
     }
@@ -56,101 +59,83 @@ const activeDeals = [
 
 export default function CreatorDashboard() {
     return (
-        <div className="min-h-screen pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#050505] text-white">
-            {/* Background accents */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[128px] pointer-events-none" />
+        <div className="min-h-screen bg-[#050505] flex">
+            <Sidebar role="creator" />
 
-            <div className="max-w-7xl mx-auto relative z-10">
-                <header className="mb-12">
-                    <h1 className="text-3xl md:text-4xl font-bold font-display mb-2">
-                        Creator Hub
-                    </h1>
-                    <p className="text-gray-400 text-lg">
-                        Welcome back, <span className="text-cyan-400 font-medium">Alex</span>
-                    </p>
+            <main className="flex-1 md:ml-64 p-8 pt-24 md:pt-8 min-h-screen relative overflow-hidden">
+                {/* Background Haze */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-adquora-cyan/10 rounded-full blur-[128px] pointer-events-none" />
+
+                <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 relative z-10">
+                    <div>
+                        <h1 className="text-3xl font-bold font-display text-white">Creator Hub</h1>
+                        <p className="text-gray-400">Track your earnings and deliverables.</p>
+                    </div>
+                    <GlassCard className="px-4 py-2 flex items-center gap-2 bg-white/5 border border-white/10" hoverEffect={false}>
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-sm text-gray-300">Available for work</span>
+                    </GlassCard>
                 </header>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    {stats.map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            className="glass p-6 rounded-2xl border border-white/5 relative overflow-hidden group"
-                        >
-                            <div className="relative z-10 flex items-start justify-between">
-                                <div>
-                                    <p className="text-gray-400 text-sm font-medium mb-1">{stat.title}</p>
-                                    <h3 className="text-3xl font-bold font-display mb-1">{stat.value}</h3>
-                                    <p className="text-xs text-gray-500">{stat.subtext}</p>
-                                </div>
-                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg`}>
-                                    <stat.icon className="w-6 h-6 text-white" />
-                                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 relative z-10">
+                    {stats.map((stat, i) => (
+                        <GlassCard key={i} className="p-6 flex items-center gap-4">
+                            <div className={`p-4 rounded-xl bg-white/5 ${stat.color}`}>
+                                <stat.icon size={24} />
                             </div>
-                            {/* Hover Glow */}
-                            <div className={`absolute -bottom-10 -right-10 w-32 h-32 bg-gradient-to-br ${stat.color} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity`} />
+                            <div>
+                                <p className="text-sm text-gray-400">{stat.title}</p>
+                                <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
+                                <p className="text-xs text-gray-500">{stat.subtext}</p>
+                            </div>
+                        </GlassCard>
+                    ))}
+                </div>
+
+                {/* Active Jobs */}
+                <h2 className="text-xl font-bold font-display text-white mb-6">Active Jobs</h2>
+                <div className="space-y-4 relative z-10">
+                    {jobs.map((job, i) => (
+                        <motion.div
+                            key={job.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                        >
+                            <GlassCard className="p-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-white/5 transition-colors">
+                                <div className="flex items-center gap-4 w-full md:w-auto">
+                                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center font-bold text-lg">
+                                        {job.brand[0]}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-white">{job.title}</h3>
+                                        <p className="text-sm text-gray-400">{job.brand} • {job.amount}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                                    {job.status === "Action Required" && (
+                                        <div className="flex items-center gap-2 text-yellow-500 bg-yellow-500/10 px-3 py-1 rounded-full text-sm">
+                                            <Clock size={14} /> Submit Now
+                                        </div>
+                                    )}
+                                    {job.status === "Completed" && (
+                                        <div className="flex items-center gap-2 text-green-500 bg-green-500/10 px-3 py-1 rounded-full text-sm">
+                                            <CheckCircle size={14} /> Paid
+                                        </div>
+                                    )}
+
+                                    <Button variant="secondary" size="sm">
+                                        Manage
+                                    </Button>
+                                </div>
+                            </GlassCard>
                         </motion.div>
                     ))}
                 </div>
 
-                {/* Active Deals Table */}
-                <div className="glass rounded-3xl border border-white/5 overflow-hidden">
-                    <div className="p-8 border-b border-white/5 flex items-center justify-between">
-                        <h2 className="text-xl font-bold font-display">Active Deals</h2>
-                        <button className="text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
-                            View All History
-                        </button>
-                    </div>
-
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left">
-                            <thead className="bg-white/5 text-gray-400 text-xs uppercase tracking-wider">
-                                <tr>
-                                    <th className="px-8 py-4 font-medium">Campaign Name</th>
-                                    <th className="px-8 py-4 font-medium">Brand Identity</th>
-                                    <th className="px-8 py-4 font-medium">Deal Value</th>
-                                    <th className="px-8 py-4 font-medium">Status</th>
-                                    <th className="px-8 py-4 font-medium text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5">
-                                {activeDeals.map((deal) => (
-                                    <tr key={deal.id} className="group hover:bg-white/5 transition-colors">
-                                        <td className="px-8 py-5 font-medium text-white">{deal.campaign}</td>
-                                        <td className="px-8 py-5 flex items-center text-gray-400">
-                                            <AlertCircle className="w-4 h-4 mr-2 text-indigo-400" />
-                                            {deal.brand}
-                                        </td>
-                                        <td className="px-8 py-5 text-emerald-400 font-mono font-bold">{deal.value}</td>
-                                        <td className="px-8 py-5">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                        ${deal.status === 'In-Progress' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                                                    deal.status === 'Reviewing' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                                                        'bg-green-500/10 text-green-400 border border-green-500/20'}`}>
-                                                {deal.status === 'Completed' && <CheckCircle className="w-3 h-3 mr-1" />}
-                                                {deal.status}
-                                            </span>
-                                        </td>
-                                        <td className="px-8 py-5 text-right">
-                                            {deal.status === 'In-Progress' ? (
-                                                <button className="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-gray-200 transition-colors">
-                                                    Submit Work
-                                                </button>
-                                            ) : (
-                                                <span className="text-xs text-gray-500">{deal.deadline}</span>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
+            </main>
         </div>
     );
 }

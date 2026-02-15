@@ -1,0 +1,84 @@
+"use client";
+
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { Button } from "@/components/ui/Button";
+import { Megaphone, Cpu, Layout, Globe, PenTool } from "lucide-react";
+import Link from "next/link";
+import Footer from "@/components/Footer";
+
+export default function ServicesPage() {
+    const services = [
+        {
+            icon: Megaphone,
+            title: "Influencer Marketing Platform",
+            desc: "The core of Adquora. Connect with verified creators, manage campaigns, and ensure secure payments through our escrow system.",
+            features: ["Verified Network", "Escrow Payments", "Campaign Analytics"]
+        },
+        {
+            icon: Cpu,
+            title: "AI Ad Creation",
+            desc: "Generate high-converting video and static ads using our proprietary AI models. Trained on top-performing social content.",
+            features: ["Text-to-Video", "Automated Variations", "Performance Prediction"]
+        },
+        {
+            icon: Layout,
+            title: "Website & Landing Pages",
+            desc: "Custom, high-speed landing pages designed to convert traffic from your influencer campaigns.",
+            features: ["Next.js Development", "Conversion Optimization", "SEO Ready"]
+        },
+        {
+            icon: Globe,
+            title: "Global Reach Campaigns",
+            desc: "Localized campaigns for international markets with native-speaking creators.",
+            features: ["Multi-language Support", "Regional Matching", "Global Payouts"]
+        },
+        {
+            icon: PenTool,
+            title: "Creative Strategy",
+            desc: "Let our experts design your campaign strategy from the ground up.",
+            features: ["Script Writing", "Storyboarding", "Brand Alignment"]
+        }
+    ];
+
+    return (
+        <main className="min-h-screen bg-[#050505]">
+            <section className="pt-32 pb-20">
+                <SectionWrapper>
+                    <div className="text-center mb-20">
+                        <h1 className="text-5xl md:text-7xl font-bold font-display text-white mb-6">
+                            Our Services
+                        </h1>
+                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                            Comprehensive solutions for modern brands. From connecting with creators to building the infrastructure for conversion.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {services.map((service, i) => (
+                            <GlassCard key={i} className="p-8 flex flex-col h-full" hoverEffect={true} gradient={true}>
+                                <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 text-adquora-purple">
+                                    <service.icon size={28} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
+                                <p className="text-gray-400 mb-8 flex-grow">
+                                    {service.desc}
+                                </p>
+                                <ul className="space-y-2 mb-8">
+                                    {service.features.map((feature, idx) => (
+                                        <li key={idx} className="flex items-center gap-2 text-sm text-gray-500">
+                                            <div className="w-1 h-1 bg-adquora-purple rounded-full" />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Button variant="secondary" className="w-full mt-auto">Learn More</Button>
+                            </GlassCard>
+                        ))}
+                    </div>
+                </SectionWrapper>
+            </section>
+            <Footer />
+        </main>
+    );
+}

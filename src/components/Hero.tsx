@@ -1,78 +1,81 @@
-'use client';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { Button } from "./ui/Button";
 
 export default function Hero() {
     return (
-        <section className="relative h-screen min-h-[800px] w-full overflow-hidden flex items-center justify-center">
-            {/* Background Video Layer */}
+        <section className="relative min-h-[90vh] w-full overflow-hidden flex items-center justify-center pt-20">
+            {/* Dynamic Background */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-black/60 z-10" /> {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 via-transparent to-[#050505] z-10" />
-
-                {/* Placeholder for Video - Replace src with actual high-end tech video */}
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover opacity-50"
-                >
-                    {/* Using a generic tech abstract background if available, else standard color */}
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-blue-circuit-board-sweep-31835-large.mp4" type="video/mp4" />
-                </video>
+                <div className="absolute inset-0 bg-[#050505]" />
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-adquora-purple/20 rounded-full blur-[128px] animate-pulse" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-adquora-cyan/10 rounded-full blur-[128px] animate-pulse delay-1000" />
+                <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
             </div>
 
-            <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-medium mb-6 backdrop-blur-md">
-                        The Future of Influencer Marketing
-                    </span>
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
-                        <span className="block text-white mb-2">Secure Deals.</span>
-                        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 font-display">
-                            Creative Freedom.
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 border-adquora-purple/30">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-adquora-cyan opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-adquora-cyan"></span>
                         </span>
+                        <span className="text-sm font-medium text-gray-300">
+                            The Future of Controlled Marketing
+                        </span>
+                    </div>
+
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
+                        <span className="block text-white">Where Brands Meet</span>
+                        <span className="text-gradient">Creators — Securely.</span>
                     </h1>
-                    <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-300 mb-10">
-                        Adquoraa is the premier escrow-based marketplace connecting elite brands with verified creators.
-                        Zero risk, guaranteed payments.
+
+                    <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-400 mb-10 leading-relaxed">
+                        Adquora connects brands and creators through an escrow-based workflow.
+                        No scams, no ghosting—just high-impact campaigns and guaranteed payments.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link
-                            href="/signup?role=brand"
-                            className="group relative px-8 py-4 bg-white text-black rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105"
-                        >
-                            <span className="relative z-10 flex items-center gap-2">
-                                Hire Creators <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                        <Link href="/auth/signup?role=brand">
+                            <Button size="lg" icon={<Zap size={20} />} className="w-full sm:w-auto">
+                                I'm a Brand
+                            </Button>
                         </Link>
+                        <Link href="/auth/signup?role=creator">
+                            <Button variant="secondary" size="lg" icon={<ArrowRight size={20} />} className="w-full sm:w-auto">
+                                I'm a Creator
+                            </Button>
+                        </Link>
+                    </div>
 
-                        <Link
-                            href="/signup?role=influencer"
-                            className="px-8 py-4 glass text-white rounded-full font-bold text-lg border border-white/10 hover:bg-white/10 transition-all hover:scale-105"
-                        >
-                            Join as Creator
-                        </Link>
+                    {/* Trust Badges */}
+                    <div className="flex justify-center items-center gap-8 text-gray-500 text-sm font-medium">
+                        <div className="flex items-center gap-2">
+                            <ShieldCheck className="text-adquora-cyan" size={18} /> Verified Creators
+                        </div>
+                        <div className="w-1 h-1 bg-gray-700 rounded-full" />
+                        <div className="flex items-center gap-2">
+                            <ShieldCheck className="text-adquora-purple" size={18} /> Escrow Protection
+                        </div>
                     </div>
                 </motion.div>
             </div>
 
-            {/* Scroll Indicator */}
+            {/* Scroll indicator */}
             <motion.div
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2"
                 animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
+                transition={{ duration: 1.5, repeat: Infinity }}
             >
-                <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                <div className="w-5 h-8 border border-white/20 rounded-full flex justify-center pt-2">
+                    <div className="w-1 h-1 bg-white rounded-full" />
                 </div>
             </motion.div>
         </section>

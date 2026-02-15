@@ -4,11 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { Mail, Lock, CheckCircle, AlertCircle, ArrowLeft, Loader2 } from 'lucide-react';
 import { api } from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
+import Cookies from 'js-cookie';
 
 export default function LoginPage() {
     const router = useRouter();
+    const { login } = useAuth();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
@@ -25,29 +28,24 @@ export default function LoginPage() {
             if (showOtp) {
                 const res = await api.auth.verify({ email: formData.email, otp });
                 if (res.token) {
-                    localStorage.setItem('token', res.token);
-                    router.push('/dashboard/creator');
+                    Cookies.set('auth_token', res.token, { expires: 7 }); // Set cookie for middleware
+                    login(res.token);
                 } else {
                     setError('Invalid OTP');
                 }
             } else {
                 const res = await api.auth.login(formData);
-                /* 
-                   NOTE: In a real flow, login might return a token directly OR require OTP. 
-                   Our backend V2 returns `otpRequired: true` for registration, but standard login 
-                   might just return token if 2FA is not forced every time. 
-                   However, if we want to force OTP on login too, the backend logic should change. 
-                   For now, let's assume login returns token directly unless we enhance backend further.
-                */
-                if (res.token) {
-                    localStorage.setItem('token', res.token);
-                    router.push('/dashboard/creator');
+                if (res.otpRequired) {
+                    setShowOtp(true);
+                } else if (res.token) {
+                    Cookies.set('auth_token', res.token, { expires: 7 }); // Set cookie for middleware
+                    login(res.token);
                 } else {
                     setError(res.message || 'Invalid credentials');
                 }
             }
-        } catch (err) {
-            setError('Something went wrong. Is the backend running?');
+        } catch (err: any) {
+            setError(err.message || 'Something went wrong. Is the backend running?');
         } finally {
             setLoading(false);
         }
@@ -118,7 +116,7 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-4 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl text-white font-bold text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-4 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl text-white font-bold text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                         >
                             {loading ? <Loader2 className="animate-spin w-6 h-6" /> : "Log In"}
                         </button>
