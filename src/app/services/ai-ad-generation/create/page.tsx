@@ -94,8 +94,8 @@ export default function CreateAdPage() {
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, adObjective: obj })}
                                                 className={`px-3 py-2 rounded-xl text-sm font-medium border transition-all capitalize ${formData.adObjective === obj
-                                                        ? 'bg-adquora-cyan/20 border-adquora-cyan text-white'
-                                                        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                                                    ? 'bg-adquora-cyan/20 border-adquora-cyan text-white'
+                                                    : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
                                                     }`}
                                             >
                                                 {obj}
@@ -141,11 +141,10 @@ export default function CreateAdPage() {
                             <div className="pt-4">
                                 <Button
                                     type="submit"
-                                    width="full"
                                     size="lg"
                                     isLoading={isLoading}
                                     icon={<Send size={18} />}
-                                    className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:shadow-cyan-500/20"
+                                    className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:shadow-cyan-500/20 w-full"
                                 >
                                     Submit Request
                                 </Button>
